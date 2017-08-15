@@ -1,0 +1,19 @@
+{
+  "name": "felahenkum",
+  "authors": [
+    "abdul hamid <abdulachik@gmail.com>"
+  ],
+  "description": "website dependencies for felah enkum site",
+  "main": "page.js",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ]
+}

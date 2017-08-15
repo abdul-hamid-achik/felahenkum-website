@@ -1,0 +1,33 @@
+{
+  "name": "neon",
+  "main": "neon.js",
+  "version": "2.0.0",
+  "homepage": "https://github.com/azendal/neon",
+  "authors": [
+    "Fernando Trasviña <fernando@freshout.us>"
+  ],
+  "description": "JavaScript DSL for Classical Inheritance",
+  "keywords": [
+    "DSL",
+    "class",
+    "inheritance"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "2.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.0.0",
+    "commit": "c6f188dec9c8b575685ccaa737d470d1a327c28e"
+  },
+  "_source": "https://github.com/azendal/neon.git",
+  "_target": "^2.0.0",
+  "_originalSource": "neon",
+  "_direct": true
+}
