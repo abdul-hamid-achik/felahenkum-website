@@ -50,10 +50,16 @@ body {
 	max-width: 100vw;
 }
 #road .jumbotron {
-	background: url('https://1.bp.blogspot.com/-ieCua5I1Clo/VMes6XWdPFI/AAAAAAAABbM/2uqV_y6ccUs/s1600/fujiyoshida-and-mount-fuji-japan.jpg');
+	background: url(/img/india-japan.jpg);
+	/*background: url('https://1.bp.blogspot.com/-ieCua5I1Clo/VMes6XWdPFI/AAAAAAAABbM/2uqV_y6ccUs/s1600/fujiyoshida-and-mount-fuji-japan.jpg');*/
 	background-position: center;
 	opacity: 0.85;
 }
+
+#road .jumbotron .container h1 {
+	color: black;
+}
+
 .jumbotron img{
 	filter: invert(100%);
 	width: 60vw;
@@ -137,7 +143,7 @@ table.table-hover tr:hover {
 }
 
 .road-page-container .jumbotron {
-	height: 150px;
+	height: 200px;
 	padding: 5px;
 }
 .road-page-container .jumbotron h1{
