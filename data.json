@@ -1,31 +1,31 @@
 {
 	"past_dates": [
 		{
-			"date": "22/3/2014",
+			"date": "3/22/2014",
 			"at": "Café Iguana",
 			"city": "Monterrey, Nuevo leon, Mexico",
 			"flyer": "3.jpg"
 		},
 		{
-			"date": "25/3/2014",
+			"date": "3/25/2014",
 			"at": "Angels",
 			"city": "Chihuahua, Chihuahua, Mexico",
 			"flyer": "13.jpg"
 		},
 		{
-			"date": "1/12/2014",
+			"date": "12/1/2014",
 			"at": "Magical Fantasy",
 			"city": "Tokyo, Japan",
 			"flyer": "7.jpg"
 		},
 		{
-			"date": "4/12/2014",
+			"date": "12/4/2014",
 			"at": "Bar de G",
 			"city": "Tokyo, Japan",
 			"flyer": "18.jpg"
 		},
 		{
-			"date": "8/12/2014",
+			"date": "12/8/2014",
 			"at": "Crocodile",
 			"city": "Tokyo, Japan",
 			"flyer": "10.jpg"
@@ -37,25 +37,25 @@
 			"flyer": "9.jpg"
 		},
 		{
-			"date": "13/2/2015",
+			"date": "2/13/2015",
 			"at": "El Giglar",
 			"city": "Torreon, Coahuila, Mexico",
 			"flyer": "12.jpg"
 		},
 		{
-			"date": "25/4/2015",
+			"date": "4/25/2015",
 			"at": "Hojas de te",
 			"city": "CDMX, Mexico",
 			"flyer": "21.jpg"
 		},
 		{
-			"date": "30/4/2015",
+			"date": "4/30/2015",
 			"at": "Jazz Boozz",
 			"city": "Torreon, Coahuila, Mexico",
 			"flyer": "23.jpg"
 		},
 		{
-			"date": "1/5/2015",
+			"date": "5/1/2015",
 			"at": "Liquid Lounge",
 			"city": "Torreon, Coahuila, Mexico",
 			"flyer": "22.jpg"
@@ -67,19 +67,19 @@
 			"flyer": "16.jpg"
 		},
 		{
-			"date": "29/11/2015",
+			"date": "11/29/2015",
 			"at": "Paradise",
 			"city": "Yokohama, Japan",
 			"flyer": "6.jpg"
 		},
 		{
-			"date": "4/12/2015",
+			"date": "12/4/2015",
 			"at": "Mayicana",
 			"city": "Tokyo, Japan",
 			"flyer": "2.jpg"
 		},
 		{
-			"date": "5/12/2015",
+			"date": "12/5/2015",
 			"at": "Bakudan Cafe",
 			"city": "Tokyo, Japan",
 			"flyer": "15.jpg"
@@ -91,39 +91,90 @@
 			"flyer": "19.jpg"
 		},
 		{
-			"date": "18/12/2015",
+			"date": "12/18/2015",
 			"at": "Gyoen papera",
 			"city": "Tokyo, Japan",
 			"flyer": "1.jpg"
 		},
 		{
-			"date": "8/7/2016",
+			"date": "7/8/2016",
 			"at": "Cosa Nostra",
 			"city": "CDMX, Mexico",
 			"flyer": "14.jpg"
 		},
 		{
-			"date": "10/7/2016",
+			"date": "7/10/2016",
 			"at": "Foro Cultural Breton",
 			"city": "Guadajalara, Jalisco, Mexico",
 			"flyer": "20.jpg"
 		},
 		{
-			"date": "14/7/2016",
+			"date": "7/14/2016",
 			"at": "Jazz Boozz",
 			"city": "Torreon, Coahuila, Mexico",
 			"flyer": "8.jpg"
 		},
 		{
-			"date": "16/7/2016",
+			"date": "7/16/2016",
 			"at": "Angels",
 			"city": "Chihuahua, Chihuhua, Mexico",
 			"flyer": "4.jpg"
 		},
 		{
-			"date": "1/6/2017",
+			"date": "6/1/2017",
 			"at": "Soho Bar",
 			"city": "Torreon, Coahuila, Mexico",
 			"flyer": "24.jpg"
-		}]
+		},
+		{
+			"date": "9/16/2017",
+			"at": "Jorge De Llano Master Class",
+			"city": "Chihuahua, Chihuahua",
+			"flyer": "25.jpg"
+		},
+		{
+			"date": "10/19/2017",
+			"at": "Festival Revueltas",
+			"city": "Gomez Palacio, Durango, Mexico",
+			"flyer": "29.jpg"
+		}
+	],
+	"new_dates": [
+		{
+			"date": "11/16/2017",
+			"at": "Crescendo",
+			"city": "Tokyo, Japan",
+			"flyer": "27.jpg"
+		},
+		{
+			"date": "11/17/2017",
+			"at": "Zinc",
+			"city": "Tokyo, Japan",
+			"flyer": "27.jpg"
+		},
+		{
+			"date": "11/22/2017",
+			"at": "The player house",
+			"city": "Tokyo, Japan",
+			"flyer": "27.jpg"
+		},
+		{
+			"date": "11/24/2017",
+			"at": "Bayd",
+			"city": "Tokyo, Japan",
+			"flyer": "27.jpg"
+		},
+		{
+			"date": "12/1/2017",
+			"at": "Depot 48",
+			"city": "New Delhi, India",
+			"flyer": "26.jpg"
+		},
+		{
+			"date": "12/3/2017",
+			"at": "The piano man",
+			"city": "New Delhi, India",
+			"flyer": "26.jpg"
+		}
+	]
 }

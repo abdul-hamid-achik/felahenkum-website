@@ -1,14 +1,14 @@
 Class(RoadPageUI, "Controller").inherits(Widget)({
 	HTML: `<div>
 		<ul class="nav nav-tabs">
-		  <li role="presentation" class="no-available-dates" data-toggle="tooltip" data-placement="top" disabled><a id="new-dates-link">New Dates</a></li>
-		  <li role="presentation" class="active"><a id="past-dates-link">Past Dates</a></li>
+		  <li role="presentation" class="no-available-dates active" data-toggle="tooltip" data-placement="top" disabled><a id="new-dates-link">New Dates</a></li>
+		  <li role="presentation" class><a id="past-dates-link">Past Dates</a></li>
 		</ul>
 		<div class="jumbotron">
 		  <div class="container">
-			<h1>México, Japan, India 2018</h1>
+			<h1>México, Japan, India 2017</h1>
 			 <p style="background-color: black;opacity:0.7;">
-				Soon <i class="fa fa-ticket" style="color:white;" aria-hidden="true"></i>
+				For Japan dates tickets, contact <a href="https://www.facebook.com/kentam.44/">Kenichi Tamura!</a> <i class="fa fa-ticket" style="color:white;" aria-hidden="true"></i>
 			 </p>
 			 <p style="background-color: black;opacity:0.7;">
 				To see the flyers click the event
@@ -42,30 +42,28 @@ Class(RoadPageUI, "Controller").inherits(Widget)({
 			$.get('/data.json', function (response) {
 				var data = response;
 				Controller.past_dates = data.past_dates.reverse();
-				Controller.past_dates.map(function (date) {
+				Controller.past_dates.sort(function(a,b){
+				  return new Date(b.date) - new Date(a.date);
+				}).map(function (date) {
 					Controller.pastDates.appendChild(new RoadPageUI.TableRow({
 						image: "img/band/flyers/" + date.flyer,
 						date: date.date,
 						where: date.at,
 						city: date.city
 					})).render(Controller.pastDates.$table);
-				})
-			})
-
-			// for (i = 0; i < 5; i++) {
-			// 	this.newDates.appendChild(new RoadPageUI.TableRow({
-			// 		image: "img/band/flyers/" + (i + 1) + ".jpg",
-			// 		date: moment().format('MMMM Do YYYY'),
-			// 		where: "Golden temple",
-			// 		city: "Tokyo, Japan"
-			// 	})).render(this.newDates.$table);
-			// }
-			this.newDates.appendChild(new RoadPageUI.TableRow({
-				image: "img/band/flyers/25.jpg",
-				date: "September 16 2017",
-				where: "Jorge De Llano Master Class",
-				city: "Chihuahua, Chihuahua"
-			})).render(this.newDates.$table);
+				});
+				Controller.new_dates = data.new_dates.reverse();
+				Controller.new_dates.sort(function(a,b){
+				  return new Date(b.date) - new Date(a.date);
+				}).reverse().map(function (date) {
+					Controller.newDates.appendChild(new RoadPageUI.TableRow({
+						image: "img/band/flyers/" + date.flyer,
+						date: date.date,
+						where: date.at,
+						city: date.city
+					})).render(Controller.newDates.$table);
+				});
+			});
 
 			this.bind('showModal', function (event) {
 				flyerModal.changeImageSrc(event.data.imageSource);
