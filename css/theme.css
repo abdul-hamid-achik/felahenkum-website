@@ -193,3 +193,7 @@ li.active #past-dates-link, li.active #new-dates-link {
 .loader {
 	text-align: center;
 }
+
+.make-darker {
+	filter: grayscale(1);
+}
