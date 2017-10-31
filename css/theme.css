@@ -197,3 +197,6 @@ li.active #past-dates-link, li.active #new-dates-link {
 .make-darker {
 	filter: grayscale(1);
 }
+.past-member {
+	margin-bottom: 15px;
+}
