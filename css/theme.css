@@ -200,3 +200,17 @@ li.active #past-dates-link, li.active #new-dates-link {
 .past-member {
 	margin-bottom: 15px;
 }
+
+.past-member div img {
+	width: 60%;
+}
+
+.active-member div img {
+	width: 80%;
+}
+.active-member {
+	margin-bottom: 15px;
+}
+#carousel-element, #media-others {
+	margin: 0 auto;
+}
