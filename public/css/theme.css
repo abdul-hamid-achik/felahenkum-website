@@ -214,3 +214,17 @@ li.active #past-dates-link, li.active #new-dates-link {
 #carousel-element, #media-others {
 	margin: 0 auto;
 }
+
+#not_found {
+	min-height: 360px;
+	padding: 50px;
+	text-align: center;
+}
+#not_found p a {
+	text-decoration: underline;
+	color:white;
+}
+#not_found p a:hover {
+	text-decoration: underline;
+	color:lightgrey;
+}

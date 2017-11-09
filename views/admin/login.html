@@ -1,0 +1,15 @@
+{% extends 'admin/layout.html' %}
+
+{% block content %}
+	<form id="login-form" method="post" action="/login" multipart='urlencoded'>
+		<div class="form-group">
+			<label for="user-email-login">Email</label>
+			<input class="form-control" type="email" name="email" id="user-email-login">
+		</div>
+		<div class="form-group">
+			<label for="user-password-login">Password</label>
+			<input class="form-control" type="password" name="password" id="user-password-login">
+		</div>
+		<input type="submit" value="Enter to admin"/>
+	</form>
+{% endblock %}
