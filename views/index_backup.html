@@ -15,6 +15,8 @@
         <meta property="og:title" content="Felah Enkum Band Website" />     
         <meta property="og:description" content="Here you will find news, media, gear, tour info about the band Felah Enkum" /> 
         <meta property="og:image" content="/img/band/albums/promo.png" />
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-77021221-2"></script>
         <script>
             (function(d, s, id) {
               var js, fjs = d.getElementsByTagName(s)[0];
@@ -23,6 +25,13 @@
               js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9";
               fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));
+        </script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-77021221-2');
         </script>
     </head>
     <body data-spy="scroll" data-target="#navbar-scroll">
@@ -81,6 +90,13 @@
                                         </div>
                                     </div> -->
                                     <div class="item active">
+                                        <div class="embed-responsive embed-responsive-16by9">
+                                            <div id="video-promo-3">
+                                            </div>
+                                            <!-- <iframe width="640" height="360" src="https://www.youtube.com/embed/I-KBGrzArRw?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe> -->
+                                        </div>
+                                    </div>
+                                    <div class="item">
                                         <div class="embed-responsive embed-responsive-16by9">
                                             <div id="video-promo-1">
                                             </div>
@@ -404,16 +420,17 @@
             <script>
                 window.RoadPageUI = {};
             </script>
-            <script src="/app/moment.js"></script>
+            <script src="/vendor/moment.js"></script>
             <script src="/js/jquery.min.js"></script>
             <script src="/js/bootstrap.min.js"></script>
-            <script src="/app/bower_components/neon/neon.js"></script>  
-            <script src="/app/bower_components/neon/stdlib/custom_event.js"></script>   
-            <script src="/app/bower_components/neon/stdlib/custom_event_support.js"></script>       
-            <script src="/app/bower_components/neon/stdlib/bubbling_support.js"></script>       
-            <script src="/app/bower_components/neon/stdlib/node_support.js"></script>   
-            <script src="/app/bower_components/neon/stdlib/widget.js"></script>
+            <script src="/vendor/neon/neon.js"></script>  
+            <script src="/vendor/neon/stdlib/custom_event.js"></script>   
+            <script src="/vendor/neon/stdlib/custom_event_support.js"></script>       
+            <script src="/vendor/neon/stdlib/bubbling_support.js"></script>       
+            <script src="/vendor/neon/stdlib/node_support.js"></script>   
+            <script src="/vendor/neon/stdlib/widget.js"></script>
             <script src="/js/road_page.js"></script>
             <script src="/js/page.js"></script>
+
         </body>
     </html>

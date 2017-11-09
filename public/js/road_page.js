@@ -206,4 +206,3 @@ var flyerModal = new RoadPageUI.FlyerModal({
 });
 
 flyerModal.render($(document.body));
-

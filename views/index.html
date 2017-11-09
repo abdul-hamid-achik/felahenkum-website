@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="view" id="index">
+    <div class="row">
+        <div class="col-md-8">
+            <div id="carousel-element" class="carousel slide" data-ride="carousel">
+              <ol class="carousel-indicators">
+                <li data-target="#carousel-element" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-element" data-slide-to="1"></li>
+                <li data-target="#carousel-element" data-slide-to="2"></li>
+              </ol>
+
+              <div class="carousel-inner" role="listbox">
+<!--                                     <div class="item active">
+                    <div class="img-responsive">
+                        <img width="640px" style="width:640px;" src="/img/band/flyers/25.jpg"/>
+                    </div>
+                </div> -->
+                <div class="item active">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <div id="video-promo-3">
+                        </div>
+                        <!-- <iframe width="640" height="360" src="https://www.youtube.com/embed/I-KBGrzArRw?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe> -->
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <div id="video-promo-1">
+                        </div>
+                        <!-- <iframe width="640" height="360" src="https://www.youtube.com/embed/ZqQcnzLugPg?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe> -->
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="img-responsive">
+                        <img width="640px" style="width:640px;" src="/img/band/albums/promo.png"/>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <div id="video-promo-2">
+                        </div>
+                        <!-- <iframe width="640" height="360" src="https://www.youtube.com/embed/I-KBGrzArRw?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe> -->
+                    </div>
+                </div>
+              </div>
+
+              <a class="left carousel-control" href="#carousel-element" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="right carousel-control" href="#carousel-element" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+        </div>
+        <div class="col-md-4" id="media-others">
+            <div class="fb-page" data-href="https://www.facebook.com/FelahEnkum" data-tabs="timeline" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/FelahEnkum" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/FelahEnkum">Felah - Enkum</a></blockquote></div>
+            <div class="row">
+                <div class="go-to-view">
+                    <h4>On the road!</h4>
+                    <p>(not on tour now -- click for previous shows)</p>
+                    <a href="/#road" class="go-to btn btn-default">See all dates <i class="fa fa-calendar" style="color:black;" aria-hidden="true"></i></a>
+                </div>  
+            </div>
+            <div class="row">
+                <div class="go-to-view">
+                    <h4>Gear</h4>
+                    <p>click if you wonder what gear we use!</p>
+                    <a href="/#gear" class="go-to btn btn-default">Check our gear <i class="fa fa-wrench"  style="color:black;" aria-hidden="true"></i></i></a>
+                </div>  
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

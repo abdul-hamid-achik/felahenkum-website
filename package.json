@@ -1,0 +1,30 @@
+{
+  "name": "felahenkum",
+  "version": "1.0.0",
+  "description": "felah enkum website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sicksid/felahenkum-website.git"
+  },
+  "author": "abdul hamid",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sicksid/felahenkum-website/issues"
+  },
+  "homepage": "https://github.com/sicksid/felahenkum-website#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "nunjucks": "^3.0.1"
+  },
+  "now": {
+    "alias": "felahenkum.com",
+    "env": {
+      "mode": "production"
+    }
+  }
+}

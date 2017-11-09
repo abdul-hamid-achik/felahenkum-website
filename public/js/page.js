@@ -1,7 +1,7 @@
 var viewsList = $('.view'),
     nav = $('nav'),
     nav_height = nav.outerHeight(),
-    currentView = $(window.location.hash ? window.location.hash : "#index"),
+    // currentView = $(window.location.hash ? window.location.hash : "#index"),
     mainContent = $('#main-content'),
     contentWrapper = $('#content-wrapper'),
     body = $('body'),
@@ -35,6 +35,19 @@ function onYouTubeIframeAPIReady() {
         height: '360',
         width: '640',
         videoId: 'I-KBGrzArRw',
+        events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+        },
+        playerVars: {
+            'html5': 1,
+            'rel': 0
+        }
+    }));
+    players.push(new YT.Player('video-promo-3', {
+        height: '360',
+        width: '640',
+        videoId: 'whrbmPdd6wI',
         events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
@@ -90,12 +103,12 @@ $(document).ready(function() {
     })
 
     roadPage.render($("#road"));
-    viewsList.hide();
-    body.animate({
-        scrollTop: 0
-    }, 'fast');
+    // viewsList.hide();
+    // body.animate({
+    //     scrollTop: 0
+    // }, 'fast');
 
-    currentView.show();
+    // currentView.show();
 
     navListContainer.find(".active").removeClass("active");
     navListContainer.find('[href="' + window.location.hash + '"]').parent().addClass('active');
@@ -106,14 +119,14 @@ $(document).ready(function() {
             } catch (error) {};
         });
         setTimeout(function() {
-            body.animate({
-                scrollTop: 0
-            }, 'fast');
-            viewsList.hide();
+            // body.animate({
+            //     scrollTop: 0
+            // }, 'fast');
+            // viewsList.hide();
             navListContainer.find(".active").removeClass("active");
             navListContainer.find('[href="' + window.location.hash + '"]').parent().addClass('active');
-            currentView = $(event.target.hash);
-            currentView.show();
+            // currentView = $(event.target.hash);
+            // currentView.show();
         }, 0)
     });
     scrollPosition = jqWindow.scrollTop();

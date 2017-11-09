@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Felah Enkum</title>
+        <link rel='shortcut icon' type='image/png' href='/felahenkum.png' />
+        <script src="https://use.fontawesome.com/11081b6a79.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700" rel="stylesheet">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/theme.css">
+        <meta property="og:url"                content="https://www.felahenkum.com" />
+        <meta property="og:type"               content="article" />
+        <meta property="og:title" content="Felah Enkum Band Website" />     
+        <meta property="og:description" content="Here you will find news, media, gear, tour info about the band Felah Enkum" /> 
+        <meta property="og:image" content="/img/band/albums/promo.png" />
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-77021221-2"></script>
+        <script>
+            (function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-77021221-2');
+        </script>
+    </head>
+    <body data-spy="scroll" data-target="#navbar-scroll">
+        <div id="fb-root"></div>
+        <div class="jumbotron">
+          <img src="img/band/logos/3.png">
+        </div>
+            <div id="main-content">
+                <nav class="navbar navbar-default" id="navbar-scroll">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li><a href="/">Index</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/discography">Discography</a></li>
+                                <li><a href="/gear">Gear/Merch</a></li>
+                                <li><a href="/road">Road</a></li>
+                                <li><a href="/blog">News</a></li>
+                                <li><a href="/media">Media</a></li>
+                                <li><a href="/contact">Contact</a></li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right" id="social-media">
+                            <li><a href="https://www.facebook.com/FelahEnkum"><i class="fa fa-facebook-official" aria-hidden="true"></i></a></li>
+                            <li><a href="https://www.youtube.com/FelahEnkumProject"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="https://twitter.com/felahenkum"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <div class="container" id="content-wrapper">
+                    <div id="background-image-wrapper">
+                        <img src="/img/background_2.jpg"/>
+                    </div>
+                    {% block content %}
+                    {% endblock %}
+                </div>
+                <footer>
+                    <a class='go-to' href="#contact" style="color:white;">Contact Us <i class="fa fa-envelope-o" aria-hidden="true"></i></a>
+                    <p>© 2012-2017 Felah - Enkum <small>ALL RIGHTS RESERVED</small></p>         
+                </footer>
+            </div>
+            <script>
+                window.RoadPageUI = {};
+            </script>
+            <script src="/vendor/moment.js"></script>
+            <script src="/js/jquery.min.js"></script>
+            <script src="/js/bootstrap.min.js"></script>
+            <script src="/vendor/neon/neon.js"></script>  
+            <script src="/vendor/neon/stdlib/custom_event.js"></script>   
+            <script src="/vendor/neon/stdlib/custom_event_support.js"></script>       
+            <script src="/vendor/neon/stdlib/bubbling_support.js"></script>       
+            <script src="/vendor/neon/stdlib/node_support.js"></script>   
+            <script src="/vendor/neon/stdlib/widget.js"></script>
+            <script src="/js/road_page.js"></script>
+            <script src="/js/page.js"></script>
+
+        </body>
+    </html>
