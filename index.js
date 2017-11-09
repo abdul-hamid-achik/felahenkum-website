@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const nunjucks = require('nunjucks')
 const mongoose = require('mongoose')
@@ -6,6 +7,8 @@ const bodyParser = require('body-parser')
 const LocalStrategy = require('passport-local').Strategy
 const passwordHandler = require('password-hash-and-salt')
 const protectRoute = require('connect-ensure-login')
+const multiparty = require('multiparty')
+const cloudinary = require('cloudinary')
 const Media = require('./models/media')
 const User = require('./models/user')
 const logger = require('morgan')(process.env.MODE == "production" ? 'combined' : 'dev')
@@ -74,7 +77,7 @@ app.get('/blog', (req, res) => res.render('blog.html'))
 app.get('/media', (req, res) => res.render('media.html'))
 app.get('/contact', (req, res) => res.render('contact.html'))
 app.get('/login', (req, res) => res.render('admin/login.html'))
-app.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => res.redirect('/admin'))
+app.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => res.redirect('/admin/'))
 app.get('/admin/', protectRoute.ensureLoggedIn(), (req, res) => res.render('admin/index.html', { user: req.user }))
 app.get('/logout',
   (req, res) => {
@@ -90,6 +93,27 @@ app.get("/api/media", (req, res) => {
     }
 
     res.send(data)
+  })
+})
+
+app.post("/api/upload", (req, res) => {
+  var form = new multiparty.Form({
+    uploadDir: '/tmp'
+  })
+  form.parse(req, function (err, fields, files) {
+    if (err) {
+      return res.status(400)
+    }
+
+    
+    cloudinary.v2.uploader.upload(files.file[0].path, function (error, result) {
+      console.log(error)
+      console.log(result)
+    })
+
+    res.status(200)
+    res.write('<a style="font-family: Helvetica; padding: 250px;" href="/admin/#/media">Go back</a>')
+    return res.send()
   })
 })
 
