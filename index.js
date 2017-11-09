@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const LocalStrategy = require('passport-local').Strategy
 const passwordHandler = require('password-hash-and-salt')
 const protectRoute = require('connect-ensure-login')
+const Media = require('./models/media')
 const User = require('./models/user')
 const logger = require('morgan')(process.env.MODE == "production" ? 'combined' : 'dev')
 const app = express()
@@ -74,13 +75,23 @@ app.get('/media', (req, res) => res.render('media.html'))
 app.get('/contact', (req, res) => res.render('contact.html'))
 app.get('/login', (req, res) => res.render('admin/login.html'))
 app.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => res.redirect('/admin'))
-app.get('/admin', protectRoute.ensureLoggedIn(), (req, res) => res.render('admin/index.html', { user: req.user }))
+app.get('/admin/', protectRoute.ensureLoggedIn(), (req, res) => res.render('admin/index.html', { user: req.user }))
 app.get('/logout',
-  function(req, res) {
+  (req, res) => {
     req.logout()
     res.redirect('/')
   }
 )
+
+app.get("/api/media", (req, res) => {
+  Media.find({}, (error, data) => {
+    if (error) {
+      throw new Error(error)
+    }
+
+    res.send(data)
+  })
+})
 
 function logErrors (err, req, res, next) {
   console.error(err.stack)

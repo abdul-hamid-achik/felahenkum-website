@@ -36,7 +36,9 @@
   "now": {
     "alias": "felahenkum.com",
     "env": {
-      "MODE": "production"
+      "MODE": "production",
+      "DATABASE": "mongodb://aviato:eOf4tuZtjoDMl3Wm@cluster0-shard-00-00-5xbbw.mongodb.net:27017,cluster0-shard-00-01-5xbbw.mongodb.net:27017,cluster0-shard-00-02-5xbbw.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin",
+      "SECRET": "habibiteamo"
     }
   },
   "devDependencies": {

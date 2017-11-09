@@ -2,4 +2,32 @@
 
 {% block content %}
 	<h1>Welcome {{ user.name }}</h1>
+	{% raw %}
+	<div id="admin-panel">
+		<div class="row">
+			<dir class="col-md-2">
+				<ul class="navbar">
+				    <li><router-link to="/media">Media manager</router-link></li>
+				    <li><router-link to="/blog">Blog</router-link></li>
+				    <li><router-link to="/tour_dates">Tour dates</router-link></li>
+				    <li><router-link to="/messages">Messages</router-link></li>
+				</ul>				
+			</dir>
+			<dir class="col-md-10">
+				<router-view>
+				</router-view>	
+			</dir>
+		</div>
+	</div>
+	{% endraw %}
+{% endblock %}
+
+{% block scripts %}
+	<script src="/vendor/vue.min.js"></script>
+	<script src="/vendor/vue-resource.min.js"></script>
+	<script src="/vendor/vue-router.js"></script>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/vendor/tinymce/tinymce.min.js"></script>
+	<script src="/vendor/tinymce/jquery.tinymce.min.js"></script>
+	<script src="/js/admin.js"></script>
 {% endblock %}
