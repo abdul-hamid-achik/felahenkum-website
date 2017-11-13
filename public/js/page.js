@@ -34,7 +34,8 @@ $(document).ready(function() {
     scrollHandler(scrollPosition, nav, contentWrapper);
     jqWindow.scroll(scrollHandler.bind(this, jqWindow.scrollTop(), nav, contentWrapper));
 
-    var videos = $('.video-js').map(function(index) {
+    var videos = $('.video-js')
+    videos = videos.map(function(index) {
         return videojs(videos[index], {
             preload: 'auto'
         })

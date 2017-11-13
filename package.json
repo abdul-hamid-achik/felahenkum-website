@@ -39,9 +39,7 @@
     "slugify": "^1.2.1"
   },
   "now": {
-    "alias": "felahenkum.com",
-    "env": {
-    }
+    "alias": "felahenkum.com"
   },
   "devDependencies": {
     "nodemon": "^1.12.1"
