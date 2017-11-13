@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700');
 
-
 body {
 	position: relative;
 	height: 100vh;
@@ -12,22 +11,25 @@ body {
 	width: 80%;
 	margin: 0 auto;
 }
+
 #background-image-wrapper {
 	z-index: -1;
 	position: fixed;
 	top: 50px;
 	left: 0;
 }
+
 #carousel-element {
 	width: 640px;
-	height: 360px
+	height: 360px;
 	display: inline-block;
 }
+
 .go-to-view {
 	display: inline-block;
-	/*background: grey;*/
 	padding: 10px;
 }
+
 #background-image-wrapper img {
 	width: 100vw;
 	height: auto;
@@ -44,10 +46,12 @@ body {
 .jumbotron {
 	background: url(/img/background.jpg);
 	background-position:center;
-	/*filter: grayscale(100%);*/
 	text-align:center;
 	margin-bottom: 0px;
 	max-width: 100vw;
+}
+.container .jumbotron, .container-fluid .jumbotron {
+	border-radius: 0px;
 }
 #road .jumbotron {
 	background: url(/img/india-japan.jpg);
@@ -167,11 +171,22 @@ li:not(.active) #past-dates-link, li:not(.active) #new-dates-link{
 }
 
 li:not(.active):hover #past-dates-link, li:not(.active):hover #new-dates-link {
-	color: grey;
+	color: black;
 }
 
 li.active #past-dates-link, li.active #new-dates-link {
 	color: black;
+}
+
+.calendar-action-button.active, .calendar-action-button:active {
+	background: white;
+}
+
+#road div ul {
+	padding-left: 0px;
+}
+.calendar-action-button {
+	background: black;
 }
 
 .album-center {
@@ -227,4 +242,17 @@ li.active #past-dates-link, li.active #new-dates-link {
 #not_found p a:hover {
 	text-decoration: underline;
 	color:lightgrey;
+}
+
+.white-text {
+	color: white;
+}
+
+.image-container, .video-container {
+	text-align: center;
+}
+
+.media-element {
+	width: 360px;
+	display: inline-block;
 }

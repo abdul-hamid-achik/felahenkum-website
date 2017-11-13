@@ -1,16 +1,18 @@
 {% extends 'admin/layout.html' %}
 
 {% block content %}
-	<h1>Welcome {{ user.name }}</h1>
+	<p style="display: inline-block" class="pull-right">Bienvenido {{ user.name }}</p>
+	<h1>Administrador para el sitio web: <a href="/">Felah Enkum</a></h1>
 	{% raw %}
 	<div id="admin-panel">
 		<div class="row">
 			<dir class="col-md-2">
+				<h2>Menu</h2>
 				<ul class="navbar">
-				    <li><router-link to="/media">Media manager</router-link></li>
+				    <li><router-link to="/media">Videos e Imagenes</router-link></li>
 				    <li><router-link to="/blog">Blog</router-link></li>
-				    <li><router-link to="/tour_dates">Tour dates</router-link></li>
-				    <li><router-link to="/messages">Messages</router-link></li>
+				    <li><router-link to="/tour_dates">Fechas</router-link></li>
+				    <li><router-link to="/messages">Mensajes</router-link></li>
 				</ul>				
 			</dir>
 			<dir class="col-md-10">
@@ -23,7 +25,7 @@
 {% endblock %}
 
 {% block scripts %}
-	<script src="/vendor/vue.min.js"></script>
+	<script src="/vendor/vue.js"></script>
 	<script src="/vendor/vue-resource.min.js"></script>
 	<script src="/vendor/vue-router.js"></script>
 	<script src="/js/jquery.min.js"></script>

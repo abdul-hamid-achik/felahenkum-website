@@ -3,11 +3,11 @@ var Schema = mongoose.Schema
 
 var mediaSchema = new Schema({
   type: String,
-  url: String,
-  galery: Boolean,
-  flyer: Boolean,
-  carousel: Boolean,
-  band: Boolean,
+  file: String,
+  gallery: { type: Boolean, default: false },
+  flyer: { type: Boolean, default: false },
+  carousel: { type: Boolean, default: false },
+  band: { type: Boolean, default: false },
   created_at: Date,
   updated_at: Date
 })

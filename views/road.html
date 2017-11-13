@@ -1,8 +1,73 @@
 {% extends "layout.html" %}
 {% block content %}
 	<section class="view" id="road">
-
-	</section>
+        <div>
+            <ul>
+                <li class="calendar-action-button {{ 'no-available-dates' if (new_dates.length == 0) }} active btn btn-default">
+                    <a id="new-dates-link">New Dates</a>
+                </li>
+                <li class="calendar-action-button btn btn-default">
+                    <a id="past-dates-link">Past Dates</a>
+                </li>
+            </ul>
+            <div class="jumbotron">
+              <div class="container">
+                <h1>México, Japan, India 2017</h1>
+                 <p style="background-color: black;opacity:0.7;">
+                    For Japan dates tickets, contact <a href="https://www.facebook.com/kentam.44/">Kenichi Tamura!</a> <i class="fa fa-ticket" style="color:white;" aria-hidden="true"></i>
+                 </p>
+                 <p style="background-color: black;opacity:0.7;">
+                    To see the flyers click the event
+                 </p>
+              </div>
+            </div>
+            <div id="new-dates">
+                <div class="legend"></div>
+                <table class="table table-hover">
+                    {% for date in new_dates %}
+                        <tr data-toggle="tooltip" data-placement="top" id="{{ date._id }}" data-image-url="{{ date.flyer }}">
+                            <td class="table-date">{{ date.date.getDate() }}/{{ date.date.getMonth() + 1 }}/{{ date.date.getFullYear() }}</td>
+                            <td class="table-where">{{ date.at }}</td>
+                            <td class="table-city">{{ date.city }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div id="past-dates">
+                <div class="legend"></div>
+                <table class="table table-hover" style="display:none">
+                    {% for date in past_dates %}
+                        <tr data-toggle="tooltip" data-placement="top" id="{{ date._id }}">
+                            <td class="table-date">{{ date.date.getDate() }}/{{ date.date.getMonth() + 1 }}/{{ date.date.getFullYear() }}</td>
+                            <td class="table-where">{{ date.at }}</td>
+                            <td class="table-city">{{ date.city }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </section>
+    <div class="modal fade" tabindex="-1" role="dialog" id="poster-modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+              <img class="img-responsive" id="flyer-image">
+              <div class="loader">
+                  <i class="fa fa-circle-o-notch fa-spin fa-5x" aria-hidden="true"></i>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">
+                  Close		        
+              </button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
 {% endblock %}
 
 

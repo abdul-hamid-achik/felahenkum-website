@@ -5,9 +5,10 @@ const Schema = mongoose.Schema
 var postSchema = new Schema({
     title: String,
     slug: String,
+    description: String,
     content: String,
     user: {
-        type: Schema.Type.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'User'
     },
     created_at: Date,
@@ -22,7 +23,7 @@ postSchema.pre('save', function(next) {
         this.created_at = currentDate
     }
 
-    if (!this.slugify) {
+    if (!this.slugify && this.title ) {
         this.slugify = slugify(this.title)
     }
 

@@ -11,37 +11,21 @@
               </ol>
 
               <div class="carousel-inner" role="listbox">
-<!--                                     <div class="item active">
-                    <div class="img-responsive">
-                        <img width="640px" style="width:640px;" src="/img/band/flyers/25.jpg"/>
-                    </div>
-                </div> -->
-                <div class="item active">
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <div id="video-promo-3">
+                {% for index in range(0, carousel.length) %}
+                    {% if (carousel[index].type == 'image') %}
+                        <div class="item active">
+                            <div class="img-responsive">
+                                <img width="640" src="{{ carousel[index].file.secure_url }}"/>
+                            </div>
                         </div>
-                        <!-- <iframe width="640" height="360" src="https://www.youtube.com/embed/I-KBGrzArRw?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe> -->
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <div id="video-promo-1">
+                    {% else %}
+                        <div class="item">
+                            <div class="video">
+                                <video width="640" preload class="video-js vjs-default-skin vjs-big-play-centered" id="video-promo-{{index}}" src="{{ carousel[index].file.secure_url }}" controls></video>
+                            </div>
                         </div>
-                        <!-- <iframe width="640" height="360" src="https://www.youtube.com/embed/ZqQcnzLugPg?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe> -->
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="img-responsive">
-                        <img width="640px" style="width:640px;" src="/img/band/albums/promo.png"/>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <div id="video-promo-2">
-                        </div>
-                        <!-- <iframe width="640" height="360" src="https://www.youtube.com/embed/I-KBGrzArRw?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe> -->
-                    </div>
-                </div>
+                    {% endif %}
+                {% endfor %}
               </div>
 
               <a class="left carousel-control" href="#carousel-element" role="button" data-slide="prev">

@@ -1,51 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
     <section class="view" id="news">
-        <article>
-            <h1>We are recording a DVD in Japan!</h1>
-            <p>Checkout our new dates and if you would like to assist to see the dvd being recorded join us in Bayd@Tokyo, Japan on 24/11/2017!</p>
-            <p>Here is the <a href="http://www.studio-bayd.com/simokitazawa/studio_f.html#studioHead">website of Bayd</a> where you can get tickets, access is limited!</p>
-            <p><a href="https://felahenkum.com/#road">
-            More info here</a></p>
-        </article>
-        <hr>
-        <article>
-            <h1><a href="https://www.elsiglodetorreon.com.mx/noticia/1091150.felah-enkum-project-va-por-mas-triunfos.html">México, Japan, India Tour</a> <small>2017</small></h1>
-            <p>We will be touring over asia again! check our dates:</p>
-            <p><a href="https://felahenkum.com/#road">
-            Click Here</a></p>
-        </article>
-        <hr>
-        <article>
-            EL SIGLO DE TORREON 
-            <h1><a href="https://www.elsiglodetorreon.com.mx/noticia/1073539.el-felah-enkum-project-un-ensamble-de-aliento.html">El Felah-Enkum, un ensamble de aliento</a> <small>4 de ene 2015</small></h1>
-            <p>Después de ofrecer cuatro conciertos en Japón, dos de ellos en sold out, el grupo lagunero de flamenco Felah-Enkum Project, regresa a La Laguna para planear el calendario de actividades del 2015, año en el que esperan tener mucha actividad, tanto en el país como en el extranjero.</p>
-            <p>by: <a href="https://www.elsiglodetorreon.com.mx/noticia/1073539.el-felah-enkum-project-un-ensamble-de-aliento.html">
-            EL SIGLO DE TORREON </a></p>
-        </article>
-        <hr>                    
-        <article>
-            <h1><a href="http://www.playersoflife.com/articulo.php?id=7134">FELAH-ENKUM, ¡QUE NUNCA DECLINE EL FLAMENCO!</a> <small>
-            23 JUNIO 2014</small></h1>
-            <p>La energía exhorbitante y desbordante que transmiten a cada rasgueo y sonar de sus instrumentos, se puede notar en canciones como El pórtico, donde destaca el trabajo que se hace con golpes de cajas musicales y aplausos al más puro estilo andaluz.
-            Felah-Enkum viene a recordarnos en estos días que España no es solo reyes y fútbol, sino también una nación con una amplia riqueza cultural que, afortunadamente gracias al vínculo estrecho con nuestro México, podemos disfrutar de manera cercana.</p>
-            <p>by: <a href="http://www.playersoflife.com/articulo.php?id=7134">
-            PLAYERS OF LIFE </a></p>
-        </article>
-        <hr>
-        <article>
-            <h1><a href="http://www.perfectprog.com/site/index.php/news/247-felah-enkum-project-progressive-flamenco-from-mexico">PERFECT PROG – Intelligent Music for Intelligent People</a> <small>
-            April 8th 2014</small></h1>
-            <h3>Felah-Enkum Progressive Flamenco from Mexico</h3>
-            <p>This flamenco progressive mexican band with amazing energy and unique style makes this a one of a kind band to be enjoyed by all - Premier Records News.</p>
-            <p>by: <a href="http://www.perfectprog.com/site/index.php/news/247-felah-enkum-project-progressive-flamenco-from-mexico" "email me">Perfect Prog</a></p>
-        </article>
-        <hr>
-        <article>
-            <h1><a href="https://eencoree.wordpress.com/2014/02/06/felah-enkum-project-flamenco-100-torreonita/">Felah-Enkum: Flamenco 100% Torreonita</a> <small>Febrero 6, 2014</small></h1>
-            <p>Desde la primer canción podemos sentir la energía, pasión y sentimiento que los músicos ponen al interpretar y ejecutar, llevándonos a un viaje musical a través de sus diferentes ritmos, en los que se puede apreciar el toque personal al que ellos mismos han denominado como “Flamenco Progresivo”, al escucharlo lo menos que se antoja es disfrutar de una exquisita copa de vino o incluso vamos a sentirnos transportados para vernos vagar por algún lugar de España, sin duda alguna es algo que nuestros oídos van a disfrutar y agradecer.</p>
-            <p>by: <a href="https://eencoree.wordpress.com/2014/02/06/felah-enkum-project-flamenco-100-torreonita/">
-            ENCORE MAGAZINE</a></p>
-        </article>
+        {% for post in posts %}
+            <article>
+                {% if post.title %}
+                    <h2><a href="/blog/{{post.slug}}">{{ post.title }}</a></h2>
+                {% endif %}
+                <div>{{ post.description | safe }}</div>
+            </article>
+        {% endfor %}
     </section>
 {% endblock %}

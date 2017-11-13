@@ -1,135 +1,178 @@
+Vue.config.devtools = true
 var Index = Vue.component('Index', {
-  template: '<div><p><--- Look at the options</p></div>'
+  template: '<h2>Escoje una de las opciones en el menu</h2>'
 })
 
-var MediaElement = {
-	template: '<div class="panel panel-default">\
-	  <div class="panel-body">\
-	    Panel content\
-	  </div>\
-	  <div class="panel-footer">Panel footer</div>\
-	</div>',
-	props: ['record']
-}
-
-var MediaGallery = {
-	template: '<div>\
-		<div v-if="data.length == 0">\
-			<h4>No images or videos are uploaded </h4>\
-		</div>\
-		<div v-if="data.length > 0">\
-			<div class="toolbar">\
-				<div class="input-group">\
-					<input type="text" class="form-control" v-model="data.search_query">\
-					<span class="input-group-addon">Q</span>\
-				</div>\
-			</div>\
-			<div class="display-media-elements">\
-			 	<div v-for="element in data">\
-					<media-element record="element"></media-element>\
-				</div>\
-			</div>\
-		</div>\
-	</div>',
-	props: ['data'],
-	mounted: function () {
-		console.log(this)
-
-	},
-	data: function () {
-		return { 
-			data: [],
-			search_query: '' 
-		}
-	},
-	watch: {
-		data: function (val) {
-			console.log(val)
-		},
-		search_query: function (val) {
-			console.log(val)
-		}
-	},
-	components: {
-		'media-element': MediaElement
-	}
-}
 
 var Media = Vue.component('Media', {
   template: '<div>\
-  	<h3><a v-on:click="toggleForm">Upload Image or Video</a></h3>\
+  	<a class="btn btn-default pull-right" style="display:inline-block" v-on:click="toggleForm">Subir imagen o video</a>\
   	<div v-if="showForm" class="panel panel-default">\
   		<div class="panel-body">\
-	  		<form action="/api/upload" method="post" enctype="multipart/form-data">\
-	  			<div class="form-group">\
-	  				<label for="type-selector">What are you uploading?\
-			  			<select class="form-control" id="type-selector" name="type">\
-			  				<option value="null">Select an option</option>\
-			  				<option value="video">Video</option>\
-			  				<option value="image">Image</option>\
-			  			</select>\
-		  			<label>\
-	  			</div>\
+	  		<form id="upload-media-form" v-on:submit.prevent="onSubmit">\
 	  			<div class="checkbox">\
 	  				<label>\
-			  			<input type="checkbox" name="galery"> Show in galery\
+			  			<input type="checkbox" name="galery"> Mostrar en la Galeria\
 		  			</label>\
 	  			</div>\
 	  			<div class="checkbox">\
 	  				<label>\
-			  			<input type="checkbox" name="band"> Show in band\
+			  			<input type="checkbox" name="band"> Mostrar en la Banda\
 		  			</label>\
 	  			</div>\
 	  			<div class="checkbox">\
 	  				<label>\
-			  			<input type="checkbox" name="carousel"> Show in carousel\
+			  			<input type="checkbox" name="carousel"> Mostrar en el Carousel de la pagina principal\
 		  			</label>\
 	  			</div>\
 	  			<div class="checkbox">\
 	  				<label>\
-			  			<input type="checkbox" name="flyer"> Show in flyer\
+			  			<input type="checkbox" name="flyer"> Mostrar en flyers\
 		  			</label>\
 	  			</div>\
 	  			<div class="form-group">\
 				    <label for="InputFile">File</label>\
-				    <input type="file" name="file" id="InputFile">\
+				    <input @change="autoDetectType" type="file" name="file" id="InputFile">\
 				    <p class="help-block">\
-						For Video <small>only mp4 is supported</small>\
-						and for Images <small>only jpg and png is supported</small>\
+						Para video <strong>solo el formato mp4 es soportado</strong>\
+						Para images <strong>solo los formatos jpg y png son soportados.</strong>\
 				    </p>\
 				</div>\
-				<button v-on:click="closeForm" class="btn btn-default">Upload</button>\
+				<button class="btn btn-default">Upload</button>\
 	  		</form>\
 	  	</div>\
   	</div>\
-  	<h4>All Media</h4>\
+  	<h2>All Media</h2>\
 	<div>\
-		<media-gallery :data="mediaData"></media-gallery>\
+		<div v-if="mediaData.length == 0">\
+			<h4>No has subido imagenes o videos</h4>\
+		</div>\
+		<div v-if="mediaData.length > 0">\
+			<div class="toolbar">\
+				<div class="input-group">\
+					<input type="text" class="form-control" v-model="mediaData.search_query">\
+					<span class="input-group-addon">Q</span>\
+				</div>\
+			</div>\
+			<div class="display-media-elements">\
+				<div v-for="(record, index) in mediaData" class="panel panel-default media-element" :id="record._id">\
+					<div class="panel-body">\
+						<div class="image-container" v-if="record.type == \'image\'">\
+							<img width="100%" :src="record.file.secure_url">\
+						</div>\
+						<div class="video-container" v-if="record.type == \'video\'">\
+							<video controls width="100%" :src="record.file.secure_url"></video>\
+						</div>\
+						<div>\
+							<div class="checkbox">\
+								<label>\
+									<input type="checkbox" name="gallery" @click="updatedCheckbox($event, index)" v-model="record.gallery"> Mostrar en la Galeria\
+								</label>\
+							</div>\
+							<div class="checkbox">\
+								<label>\
+									<input type="checkbox" name="band" @click="updatedCheckbox($event, index)" v-model="record.band"> Mostrar en la Banda\
+								</label>\
+							</div>\
+							<div class="checkbox">\
+								<label>\
+									<input type="checkbox" name="carousel" @click="updatedCheckbox($event, index)" v-model="record.carousel"> Mostrar en el Carousel de la pagina principal\
+								</label>\
+							</div>\
+							<div class="checkbox">\
+								<label>\
+									<input type="checkbox" name="flyer"  @click="updatedCheckbox($event, index)" v-model="record.flyer"> Mostrar en flyers\
+								</label>\
+							</div>\
+						</div>\
+					</div>\
+					<div class="panel-footer">\
+						<button @click="deleteElement($event, record, index)" class="btn btn-default">Borrar</button>\
+						<button @click="updateElement($event, record, index)" :disabled="!enableUpdateButton[index]" class="btn btn-success">Actualizar</button>\
+					</div>\
+				</div>\
+			</div>\
+		</div>\
 	</div>\
   </div>',
   data: function () {
-  	return { 
-  		mediaData: [], 
-  		showForm: false 
-  	}
+	return {
+		mediaData: [], 
+		showForm: false,
+		newData: {},
+		preventUpload: true,
+		enableUpdateButton: {}
+	}
   },
   methods: {
+	autoDetectType: function (event) {
+		var file = event.target.files[0]
+		if (file) {
+			return;
+		}
+		var type = file.type
+
+		if (type.indexOf('image') != -1 && (type.toLowerCase().indexOf('png' != -1) || type.toLowerCase().indexOf('jpg' != -1))) {
+			this.newData.type = 'image'
+			this.preventUpload = false
+		} else if (type.indexOf('video') != -1 && type.indexOf('mp4' != -1)) {
+			this.newData.type = 'video'
+			this.preventUpload = false
+		} else {
+			alert("Subiste un formato no soportado: " + type)
+		}
+	},
+	updatedCheckbox: function (event, index) {
+		this.$set(this.$data.enableUpdateButton, index, true)
+	},
   	toggleForm: function (event) {
   		this.$set(this, 'showForm', !this.showForm)
-  	},
-  	closeForm: function (event) {
-/*  		this.$set(this, 'showForm', false)
-  		debugger*/
-  	}
+	},
+	updateElement: function (event, record, index) {
+		this.$http.put('/api/media', record)
+			.then((res) => {
+				this.$set(this.$data.enableUpdateButton, index, true)
+				alert("Los datos han sido actualizados")
+			})
+	},
+  	onSubmit: function (event) {
+			if (this.preventUpload) {
+				return event.preventDefault()
+			}
+			var options = {
+				headers: { 'Content-Type': 'multipart/form-data' }
+			}
+			var formElement = document.getElementById('upload-media-form')
+			var formData = new FormData(formElement)
+
+			formData.append('type', this.newData.type)
+
+			this.$http.post('/api/upload', formData, options).then((response) => {
+				this.toggleForm(event)
+				response.body.file = JSON.parse(response.body.file)
+				this.mediaData.push(response.body)
+				this.newData.type = null
+				alert("Tu archivo acaba de ser subido a la pagina")
+			})
+	  },
+	  deleteElement: function (event, record, index) {
+		  this.$http.delete('/api/media/' + record._id)
+		  	.then((res) => {
+				  this.mediaData.splice(index, 1)
+				  document.getElementById(record._id).remove()
+				  alert(res.body.message)
+			  })
+	  }
   },
   mounted: function () {
   	this.$http.get('/api/media')
-  		.then(function (response) {
-  			this.mediaData = response.body
-  		}.bind(this))
-  },
-  components: {
-  	'media-gallery': MediaGallery
+  		.then((response) => {
+			response.body.map(function (data) {
+				data.file = JSON.parse(data.file)
+				console.log(data)
+			})
+			this.$set(this.$data, 'mediaData', response.body)
+  		})
   }
 })
 

@@ -1,208 +1,121 @@
-Class(RoadPageUI, "Controller").inherits(Widget)({
-	HTML: `<div>
-		<ul class="nav nav-tabs">
-		  <li role="presentation" class="no-available-dates active" data-toggle="tooltip" data-placement="top" disabled><a id="new-dates-link">New Dates</a></li>
-		  <li role="presentation" class><a id="past-dates-link">Past Dates</a></li>
-		</ul>
-		<div class="jumbotron">
-		  <div class="container">
-			<h1>México, Japan, India 2017</h1>
-			 <p style="background-color: black;opacity:0.7;">
-				For Japan dates tickets, contact <a href="https://www.facebook.com/kentam.44/">Kenichi Tamura!</a> <i class="fa fa-ticket" style="color:white;" aria-hidden="true"></i>
-			 </p>
-			 <p style="background-color: black;opacity:0.7;">
-				To see the flyers click the event
-			 </p>
-		  </div>
-		</div>
-		<div id="new-dates"></div>
-		<div id="past-dates"></div>
-	</div>`,
-	ELEMENT_CLASS: 'road-page-container',
-	prototype: {
-		rows: [],
-		init: function init (config) {
-			Widget.prototype.init.call(this, config);
-			var Controller = this;
+(function () {
+    var past_dates_rows, new_dates_button, past_dates_button, new_dates_button, data
 
-			this.$newDatesLink = this.element.find('#new-dates-link');
-			this.$pastDatesLink = this.element.find('#past-dates-link');
+    data = {
+        buttons: {
+            past: document.getElementById("past-dates-link"),
+            new: document.getElementById("new-dates-link")
+        },
+        tables: {
+            rows: {
+                past: document.querySelectorAll("#past-dates .table tr"),
+                new: document.querySelectorAll("#new-dates .table tr")
+            },
+            containers: {
+                past: document.querySelector("#past-dates .table"),
+                new: document.querySelector("#new-dates .table")
+            }
+        },
+        modal: {
+            flyer: document.getElementById('flyer-image'),
+            title: document.querySelector('#poster-modal .modal-title'),
+            container: document.getElementById('poster-modal'),
+            loader: document.querySelector('#poster-modal .loader')
+        }
+    }
 
-			this.appendChild(new RoadPageUI.Table({
-				name: 'pastDates'
-			})).render(this.element.find('#past-dates'));
+    data.modal.api = $(data.modal.container)
+    var context = this
 
-			this.appendChild(new RoadPageUI.Table({
-				name: 'newDates'
-			})).render(this.element.find('#new-dates'));
+    function toggleDatesButtonHandler (event) {
+        var id = event.target.id
 
-			this.pastDates.element.hide();
-			this.newDates.element.show();
+        activateButton(event.target)
 
-			$.get('/data.json', function (response) {
-				var data = response;
-				Controller.past_dates = data.past_dates.reverse();
-				Controller.past_dates.sort(function(a,b){
-				  return new Date(b.date) - new Date(a.date);
-				}).map(function (date) {
-					Controller.pastDates.appendChild(new RoadPageUI.TableRow({
-						image: "img/band/flyers/" + date.flyer,
-						date: date.date,
-						where: date.at,
-						city: date.city
-					})).render(Controller.pastDates.$table);
-				});
-				Controller.new_dates = data.new_dates.reverse();
-				Controller.new_dates.sort(function(a,b){
-				  return new Date(b.date) - new Date(a.date);
-				}).reverse().map(function (date) {
-					Controller.newDates.appendChild(new RoadPageUI.TableRow({
-						image: "img/band/flyers/" + date.flyer,
-						date: date.date,
-						where: date.at,
-						city: date.city
-					})).render(Controller.newDates.$table);
-				});
-			});
+        if (id == "new-dates-link") {
+            hideContainer(data.tables.containers.past)
+            showContainer(data.tables.containers.new)
+            deactivateButton(data.buttons.past)
+        } else if (id == "past-dates-link") {
+            showContainer(data.tables.containers.past)
+            hideContainer(data.tables.containers.new)
+            deactivateButton(data.buttons.new)
+        }
+        
+    }
 
-			this.bind('showModal', function (event) {
-				flyerModal.changeImageSrc(event.data.imageSource);
-				flyerModal.changeTitle(event.data.title);
-				flyerModal.show();
-			}.bind(this));
+    function activateButton (element) {
+        element.parentElement.classList.add("active")
+    }
+    function deactivateButton (element) {
+        element.parentElement.classList.remove("active")
+    }
 
-			this.$newDatesLink.bind('click', function() {
-				this.newDates.element.show();
-				this.pastDates.element.hide();
-				this.$newDatesLink.parent().addClass('active');
-				this.$pastDatesLink.parent().removeClass('active');
-			}.bind(this));
+    function showContainer (element) {
+        element.style = "display: table;" 
+    }
 
+    function hideContainer (element) {
+        element.style = "display: none;" 
+    }
 
-			this.$pastDatesLink.bind('click', function() {
-				this.newDates.element.hide();
-				this.pastDates.element.show();
-				this.$newDatesLink.parent().removeClass('active');
-				this.$pastDatesLink.parent().addClass('active');
-			}.bind(this));
-		}
-	}
-});
+    function showLoader() {
+        data.modal.loader.style = "display: block;"
+        data.modal.flyer.style = "display: none;"
+    }
 
-Class(RoadPageUI, 'Table').inherits(Widget).includes(BubblingSupport)({
-	HTML: `
-		<div>
-			<div class="legend"></div>
-			<table class="table table-hover">
-			</table>
-		</div>
-	`,
-	ELEMENT_CLASS: "table-responsive table-container",
-	prototype: {
-		init: function init (config) {
-			Widget.prototype.init.call(this, config);
-			this.$table = this.element.find('table');
-		}
-	}
+    function hideLoader() {
+        data.modal.loader.style = "display: none;"
+        data.modal.flyer.style = "display: block;"
+    }
 
-})
+    function getImage(id) {
+        return new Promise(function (resolve, reject) {
+            var request = new XMLHttpRequest()
 
-Class(RoadPageUI, 'TableRow').inherits(Widget).includes(BubblingSupport)({
-	HTML: `
-		<tr data-toggle="tooltip" data-placement="top">
-			<td class="table-date"></td>
-			<td class="table-where"></td>
-			<td class="table-city"></td>
-		</tr>`,
-	ELEMENT_CLASS: '',
-	prototype: {
-		init: function init (config) {
-			Widget.prototype.init.call(this, config);
-			this.$date = this.element.find('.table-date');
-			this.$where = this.element.find('.table-where');
-			this.$city = this.element.find('.table-city');
+            request.onload = function (event) {
+                resolve(JSON.parse(request.response))
+            }
 
-			this.$date.text(this.date);
-			this.$where.text(this.where);
-			this.$city.text(this.city);
+            request.onerror = function (error) {
+                reject(error)
+            }
 
-			this.element.bind('click', function () {
-				this.dispatch('showModal', {
-					data: {
-						imageSource: this.image,
-						title: this.where + " @ " + this.city
-					}
-				});
-			}.bind(this));
-		}
-	}
-});
+            request.open('GET', '/api/media/' + id, true)
+            request.setRequestHeader("Content-Type", "application/json")
+            request.send(null)
+        })
+    }
+    
+    function changeTitle(title) {
+        data.modal.title.innerText = title
+    }
 
-Class(RoadPageUI, 'FlyerModal').inherits(Widget).includes(BubblingSupport)({
-	HTML: `
-		<div class="modal fade" tabindex="-1" role="dialog">
-		  <div class="modal-dialog" role="document">
-			<div class="modal-content">
-			  <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title"></h4>
-			  </div>
-			  <div class="modal-body">
-				<img class="img-responsive" id="flyer-image">
-				<div class="loader">
-					<i class="fa fa-circle-o-notch fa-spin fa-5x" aria-hidden="true"></i>
-				</div>
-			  </div>
-			  <div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">
-					Close		        
-				</button>
-			  </div>
-			</div><!-- /.modal-content -->
-		  </div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
-	`,
-	ELEMENT_CLASS: "flyer-modal",
-	TICKET_BUTTON: `<button type="button" class="btn btn-default" data-dismiss="modal">
-		Find Tickets <i class="fa fa-ticket" aria-hidden="true"></i>
-	</button>`,
-	prototype: {
-		downloadImage: null,
-		init: function init (config) {
-			Widget.prototype.init.call(this, config);
-			this.image = this.element.find('#flyer-image');
-			this.title = this.element.find('.modal-title');
-			this.loader = this.element.find('.loader');
-			this.loader.hide();
-			this.image.bind('load', function (event) {
-				this.loader.hide();
-			}.bind(this))
-			this.element.bind('hide.bs.modal', function () {
-				$('.modal-backdrop.in').hide();
-			})
-		},
-		changeImageSrc: function changeImageSrc (src) {
-			var that = this;
-			this.loader.show();
-			this.image.attr('src', null);
-			this.downloadImage = new Image();
-			this.downloadImage.onload = function () {
-				that.image.attr('src', this.src);
-			}
-			this.downloadImage.src = src;
-			return this;
-		},
-		changeTitle: function changeTitle (string) {
-			this.title.text(string);
-		},
-		show: function show () {
-			this.element.modal('show');
-		}
-	}
-});
+    function changeModalPoster(image_url) {
+        showLoader()
+        data.modal.flyer.src = image_url
+    }
 
-var flyerModal = new RoadPageUI.FlyerModal({
-	name: "flyerModal"
-});
+    data.modal.flyer.onload = function(event) {
+        hideLoader()
+    }
 
-flyerModal.render($(document.body));
+    data.tables.rows.new.forEach(function (row) {
+        row.onclick = function (event) {
+            var target = event.target
+            
+            if (event.target.nodeName == "TD") {
+                target = event.target.parentElement
+            }
+
+            changeTitle(null) // clear title
+            getImage(target.getAttribute("data-image-url"))
+                .then(function (response) {
+                    changeModalPoster(JSON.parse(response.file).secure_url)
+                })
+        }
+    })
+
+    data.buttons.past.onclick = toggleDatesButtonHandler
+    data.buttons.new.onclick = toggleDatesButtonHandler
+})()
