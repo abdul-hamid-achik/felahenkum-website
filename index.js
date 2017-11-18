@@ -102,10 +102,11 @@ app.get('/gear', (req, res) => res.render('gear.html'))
 
 app.get('/road', (req, res) => { 
   var context = {}
-  TourDate.find({}, (err, dates) => {
+  TourDate.find({}).populate('flyer').exec((err, dates) => {
     if (err) {
       throw new Error(err.message)
     }
+
     context.new_dates = dates.filter(date => date.date > Date.now())
     context.new_dates.sort(function (a, b) {
       var key1 = new Date(a.date)

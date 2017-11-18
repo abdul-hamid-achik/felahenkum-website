@@ -7,7 +7,7 @@ var tourDateSchema = new Schema({
     city: String,
     flyer: {
         type: Schema.Types.ObjectId,
-        ref: 'Media'
+        ref: 'media'
     },
     date: Date
 });

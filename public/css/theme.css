@@ -156,7 +156,7 @@ table.table-hover tr:hover {
 	margin-top: 10px;
 }
 
-.flyerModal, .modal-content, .modal-dialog, .modal-footer > button {
+#road .flyerModal, .modal-content, .modal-dialog, #road .flyerModal .modal-footer > button {
 	background: black;
 	color: white;
 	border: 1px solid grey;
@@ -169,7 +169,7 @@ table.table-hover tr:hover {
 }
 
 li:not(.active) #past-dates-link, li:not(.active) #new-dates-link{
-	color: white;
+	color: black;
 }
 
 li:not(.active):hover #past-dates-link, li:not(.active):hover #new-dates-link {
@@ -177,11 +177,11 @@ li:not(.active):hover #past-dates-link, li:not(.active):hover #new-dates-link {
 }
 
 li.active #past-dates-link, li.active #new-dates-link {
-	color: black;
+	color: white;
 }
 
-.calendar-action-button.active, .calendar-action-button:active {
-	background: white;
+#road .calendar-action-button.active {
+	background: black;
 }
 
 #road div ul {

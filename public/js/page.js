@@ -40,8 +40,4 @@ $(document).ready(function() {
             preload: 'auto'
         })
     })
-
-    $('.vjs-big-play-button').click(function (ev) { 
-        console.log(ev)
-    })
 });

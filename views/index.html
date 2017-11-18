@@ -21,7 +21,9 @@
                     {% else %}
                         <div class="item">
                             <div class="video">
-                                <video width="640" preload class="video-js vjs-default-skin vjs-big-play-centered" id="video-promo-{{index}}" src="{{ carousel[index].file.secure_url }}" controls></video>
+                                <video width="640" preload class="video-js vjs-default-skin vjs-big-play-centered" id="video-promo-{{index}}" controls>
+                                    <source src="{{ carousel[index].file.secure_url }}" type="video/mp4"></source>
+                                </video>
                             </div>
                         </div>
                     {% endif %}

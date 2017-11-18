@@ -1,4 +1,4 @@
-(function () {
+(function ($) {
     var past_dates_rows, new_dates_button, past_dates_button, new_dates_button, data
 
     data = {
@@ -18,8 +18,7 @@
         },
         modal: {
             flyer: document.getElementById('flyer-image'),
-            title: document.querySelector('#poster-modal .modal-title'),
-            container: document.getElementById('poster-modal'),
+            container: $(document.getElementById('poster-modal')),
             loader: document.querySelector('#poster-modal .loader')
         }
     }
@@ -69,28 +68,6 @@
         data.modal.flyer.style = "display: block;"
     }
 
-    function getImage(id) {
-        return new Promise(function (resolve, reject) {
-            var request = new XMLHttpRequest()
-
-            request.onload = function (event) {
-                resolve(JSON.parse(request.response))
-            }
-
-            request.onerror = function (error) {
-                reject(error)
-            }
-
-            request.open('GET', '/api/media/' + id, true)
-            request.setRequestHeader("Content-Type", "application/json")
-            request.send(null)
-        })
-    }
-    
-    function changeTitle(title) {
-        data.modal.title.innerText = title
-    }
-
     function changeModalPoster(image_url) {
         showLoader()
         data.modal.flyer.src = image_url
@@ -108,14 +85,24 @@
                 target = event.target.parentElement
             }
 
-            changeTitle(null) // clear title
-            getImage(target.getAttribute("data-image-url"))
-                .then(function (response) {
-                    changeModalPoster(JSON.parse(response.file).secure_url)
-                })
+            var image_data = JSON.parse(target.getAttribute("data-image"))
+            changeModalPoster(image_data.secure_url)
+            data.modal.container.modal('show')
         }
     })
+    data.tables.rows.past.forEach(function (row) {
+        row.onclick = function (event) {
+            var target = event.target
+            
+            if (event.target.nodeName == "TD") {
+                target = event.target.parentElement
+            }
 
+            var image_data = JSON.parse(target.getAttribute("data-image"))
+            changeModalPoster(image_data.secure_url)
+            data.modal.container.modal('show')
+        }
+    })
     data.buttons.past.onclick = toggleDatesButtonHandler
     data.buttons.new.onclick = toggleDatesButtonHandler
-})()
+})(jQuery)
