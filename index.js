@@ -167,6 +167,54 @@ app.get('/logout',
     res.redirect('/')
   }
 )
+app.get("/api/road", (req, res) => {
+  TourDate.find({}).sort({date: -1}).populate('flyer').exec((error, data) => {
+    if (error) {
+      throw new Error(error)
+    }
+
+    data.map(record => {
+      record.flyer.file = JSON.parse(record.flyer.file)
+    })
+
+    res.send(data)
+  })
+})
+app.get("/api/road/:id", (req, res) => {
+  TourDate.findById(req.params.id).populate('flyer').exec((error, data) => {
+    if (error) {
+      return res.send({ error: error.message })
+    }
+
+    if (!data) {
+      return res.status(404).send({ error: "Archivo no encontrado" })
+    }
+
+    res.send(data)
+  })
+})
+
+app.put("/api/road", (req, res) => {
+  var newData = req.body
+
+  newData.file = JSON.stringify(newData.file)
+
+  TourDate.findByIdAndUpdate(newData._id, newData, (error, data) => {
+    if (error) {
+      return res.send({ error: error.message })
+    }
+    res.send(data)
+  })
+})
+app.delete("/api/road/:id", (req, res) => {
+  TourDate.findByIdAndRemove(req.params.id, (error) => {
+    if (error) {
+      return res.send({ error: error.message })
+    }
+
+    res.send({ message: 'Eliminado exitosamente' })
+  })
+})
 
 app.get("/api/media", (req, res) => {
   Media.find({}, (error, data) => {

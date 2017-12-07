@@ -108,7 +108,7 @@ var Media = Vue.component('Media', {
 	autoDetectType: function (event) {
 		var file = event.target.files[0]
 		if (file) {
-			return;
+			return
 		}
 		var type = file.type
 
@@ -181,7 +181,82 @@ var Blog = Vue.component('Blog', {
 })
 
 var TourDates = Vue.component('TourDates', {
-  template: '<li>This is a todo</li>'
+  template: '<div>\
+		<a class="btn btn-default pull-right" style="display:inline-block" v-on:click="toggleForm">Agregar Nueva Fecha</a>\
+	<div class="panel panel-default">\
+		<div class="panel-header">\
+			<div class="new-date" v-if="showForm"></div>\
+			<div class="normal-actions" v-if="!showForm"></div>\
+		</div>\
+		<div class="panel-body">\
+			<div class="new-date" v-if="!showForm"></div>\
+            <div class="normal-actions" v-if="!showForm">\
+                <table class="table table-hover">\
+                    <thead>\
+                        <tr>\
+                            <th>Fecha</th>\
+                            <th>Lugar</th>\
+                            <th>Ciudad</th>\
+                            <th>Acciones</th>\
+                        </tr>\
+                    </thead>\
+                    <tbody>\
+                        <tr v-for="(date, index) in tourDates">\
+                            <td>{{ date.date | formatDate }}</td>\
+                            <td>{{ date.at }}</td>\
+                            <td>{{ date.city }}</td>\
+                            <td>\
+                                <a class="btn btn-default" v-on:click="showFlyer">Ver Flyer</a>\
+                                <a class="btn btn-default" v-on:click="deleteDate">Borrar</a>\
+                                <a class="btn btn-default" v-on:click="updateDate">Actualizar</a>\
+                            </td>\
+                        </tr>\
+                    </tbody>\
+                </table>\
+            </div>\
+		</div>\
+		<div class="panel-footer">\
+			<div class="new-date" v-if="showForm"></div>\
+			<div class="normal-actions" v-if="!showForm"></div>\
+		</div>\
+	</div>\
+  </div>',
+  mounted: function () {
+	this.$http.get('/api/road')
+		.then((response) => {
+		  response.body.map(function (data) {
+			  data.flyer.file = JSON.parse(data.flyer.file)
+			  console.log(data)
+		  })
+		  this.$set(this.$data, 'tourDates', response.body)
+		})
+	},
+  data: function () {
+    return {
+        tourDates: [],
+        showForm: false
+    }
+  },
+
+  methods: {
+      toggleForm: function () {
+        this.$set(this, 'showForm', !this.showForm)
+      },
+      updateDate: function (id) {
+
+      },
+      deleteDate: function (id) {
+
+      },
+      showFlyer: function(url) {
+
+      }
+  },
+  filters: {
+      formatDate: function (value) {
+          return moment(value).format('Do MMMM YYYY')
+      }
+  }
 })
 
 var Messages = Vue.component('Messages', {

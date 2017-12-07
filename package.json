@@ -39,7 +39,16 @@
     "slugify": "^1.2.1"
   },
   "now": {
-    "alias": "felahenkum.com"
+    "alias": "felahenkum.com",
+    "env": {
+      "DATABASE": "mongodb://aviato:aa121292@cluster0-shard-00-00-5xbbw.mongodb.net:27017,cluster0-shard-00-01-5xbbw.mongodb.net:27017,cluster0-shard-00-02-5xbbw.mongodb.net:27017/felahenkum?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin",
+      "MODE":"production",
+      "SECRET": "habibiteamo",
+      "CLOUDINARY_URL": "cloudinary://431481117532694:cYnLprdtHZNMdGow9ixWzQq2tnQ@dguzyv84c",
+      "CLOUDINARY_CLOUD_NAME": "dguzyv84c",
+      "CLOUDINARY_API_KEY": "431481117532694",
+      "CLOUDINARY_API_SECRET": "cYnLprdtHZNMdGow9ixWzQq2tnQ"
+    }
   },
   "devDependencies": {
     "nodemon": "^1.12.1"
