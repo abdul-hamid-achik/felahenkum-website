@@ -1,0 +1,40 @@
+{% extends 'admin/layout.html' %}
+
+{% block content %}
+<div class="alert alert-info">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <p><i class="glyphicon glyphicon-alert"></i>Dale click en la fecha para ver el flyer</i>
+    </p>
+</div>
+<ul class="pull-right">
+    <li class="btn btn-default">
+        <a href="/admin">Regresar</a>
+    </li>
+</ul>
+<form action="/admin/tourdates" enctype="multipart/form-data" method="post">
+    <div class="form-group">
+      <label for="at">Lugar</label>
+      <input type="text" class="form-control" id="at" placeholder="Bar macabro">
+    </div>
+    <div class="form-group">
+        <label for="city">Ciudad y Pais</label>
+        <input type="text" class="form-control" id="city" placeholder="Japan">
+    </div>
+    <div class="form-group">
+        <label for="date">Fecha</label>
+        <input type="date" class="form-control" id="date" placeholder="12/12/1992">
+    </div>
+    <div class="form-group">
+      <label for="flyer">Flyer</label>
+      <input type="file" id="flyer">
+      <p class="help-block">Sube un flyer para la fecha de gira.</p>
+    </div>
+    <button type="submit" class="btn btn-default">Subir</button>
+  </form>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

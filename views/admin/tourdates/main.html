@@ -1,0 +1,53 @@
+{% extends 'admin/layout.html' %}
+
+{% block content %}
+    <div class="alert alert-info">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <p><i class="glyphicon glyphicon-alert"></i> Dale click en la fecha para ver el flyer</i>
+        </p>
+    </div>
+    <ul class="pull-right">
+        <li class="btn btn-default">
+            <a href="/admin/tourdates/new">Agregar nueva fecha</a>
+        </li>
+        <li class="btn btn-default">
+            <a href="/admin">Regresar</a>
+        </li>
+    </ul>
+    <div id="dates">
+        <div class="legend"></div>
+        <table class="table table-hover">
+            {% for date in dates %}
+                <tr data-toggle="tooltip" data-placement="top" id="{{ date._id }}" data-image="{{ date.flyer.file }}">
+                    <td class="table-date">{{ date.date.getDate() }}/{{ date.date.getMonth() + 1 }}/{{ date.date.getFullYear() }}</td>
+                    <td class="table-where">{{ date.at }}</td>
+                    <td class="table-city">{{ date.city }}</td>
+                    <td class="table-update"><a href="/admin/tourdates/{{ date._id }}">Actualizar</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="poster-modal">
+        <div class="modal-dialog" role="document">
+           <div class="modal-content">
+                <div class="modal-body">
+                    <img class="img-responsive" id="flyer-image">
+                    <div class="loader">
+                        <i class="fa fa-circle-o-notch fa-spin fa-5x" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Close		        
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="/js/admin/tourdates.js"></script>
+{% endblock %}

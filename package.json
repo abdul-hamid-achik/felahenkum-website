@@ -42,7 +42,7 @@
     "alias": "felahenkum.com",
     "env": {
       "DATABASE": "mongodb://aviato:aa121292@cluster0-shard-00-00-5xbbw.mongodb.net:27017,cluster0-shard-00-01-5xbbw.mongodb.net:27017,cluster0-shard-00-02-5xbbw.mongodb.net:27017/felahenkum?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin",
-      "MODE":"production",
+      "MODE": "production",
       "SECRET": "habibiteamo",
       "CLOUDINARY_URL": "cloudinary://431481117532694:cYnLprdtHZNMdGow9ixWzQq2tnQ@dguzyv84c",
       "CLOUDINARY_CLOUD_NAME": "dguzyv84c",

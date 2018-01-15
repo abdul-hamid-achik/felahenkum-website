@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require('express')
+const moment = require('moment')
 const nunjucks = require('nunjucks')
 const mongoose = require('mongoose')
 const passport = require('passport')
@@ -23,8 +24,8 @@ const db = mongoose.connection
 
 cloudinary.config({ 
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
-  api_key: process.env.CLOUDINARY_API_KEY, 
-  api_secret: process.env.CLOUDINARY_API_SECRET 
+  admin_key: process.env.CLOUDINARY_admin_KEY, 
+  admin_secret: process.env.CLOUDINARY_admin_SECRET 
 })
 
 db.on('error', console.error.bind(console, 'connection error:'))
@@ -100,7 +101,7 @@ app.get('/about', (req, res) => res.render('about.html'))
 app.get('/discography', (req, res) => res.render('discography.html'))
 app.get('/gear', (req, res) => res.render('gear.html'))
 
-app.get('/road', (req, res) => { 
+app.get('/tourdates', (req, res) => { 
   var context = {}
   TourDate.find({}).populate('flyer').exec((err, dates) => {
     if (err) {
@@ -135,7 +136,7 @@ app.get('/road', (req, res) => {
       }
     })
 
-    res.render('road.html', context)
+    res.render('tourdates.html', context)
   })
 })
 app.get('/blog', (req, res) => {
@@ -167,8 +168,9 @@ app.get('/logout',
     res.redirect('/')
   }
 )
-app.get("/api/road", (req, res) => {
-  TourDate.find({}).sort({date: -1}).populate('flyer').exec((error, data) => {
+app.get("/admin/tourdates", protectRoute.ensureLoggedIn(), (req, res) => {
+  var template = 'admin/tourdates/main.html'
+  TourDate.find({}).sort({date: -1}).populate('flyer').lean().exec((error, data) => {
     if (error) {
       throw new Error(error)
     }
@@ -176,25 +178,33 @@ app.get("/api/road", (req, res) => {
     data.map(record => {
       record.flyer.file = JSON.parse(record.flyer.file)
     })
-
-    res.send(data)
+    var context = { dates: data }
+    res.render(template, context)
   })
 })
-app.get("/api/road/:id", (req, res) => {
-  TourDate.findById(req.params.id).populate('flyer').exec((error, data) => {
+
+app.get("/admin/tourdates/new", (req, res) => {
+  var template = 'admin/tourdates/new.html'
+  var context = {}
+  res.render(template, context)
+})
+
+app.get("/admin/tourdates/:id", protectRoute.ensureLoggedIn(), (req, res) => {
+  var template = 'admin/tourdates/update.html'
+  TourDate.findById(req.params.id).populate('flyer').lean().exec((error, data) => {
     if (error) {
-      return res.send({ error: error.message })
+      return res.render(template, { error: error.message })
     }
-
-    if (!data) {
-      return res.status(404).send({ error: "Archivo no encontrado" })
+    if (data.flyer) {
+      data.flyer.file = JSON.parse(data.flyer.file)
     }
-
-    res.send(data)
+    data.date = moment(data.date).format("YYYY-MM-DD")
+    var context = { tourdate: data }
+    res.render(template, context)
   })
 })
 
-app.put("/api/road", (req, res) => {
+app.put("/admin/tourdates", protectRoute.ensureLoggedIn(), (req, res) => {
   var newData = req.body
 
   newData.file = JSON.stringify(newData.file)
@@ -206,7 +216,7 @@ app.put("/api/road", (req, res) => {
     res.send(data)
   })
 })
-app.delete("/api/road/:id", (req, res) => {
+app.delete("/admin/tourdates/:id", protectRoute.ensureLoggedIn(), (req, res) => {
   TourDate.findByIdAndRemove(req.params.id, (error) => {
     if (error) {
       return res.send({ error: error.message })
@@ -216,54 +226,9 @@ app.delete("/api/road/:id", (req, res) => {
   })
 })
 
-app.get("/api/media", (req, res) => {
-  Media.find({}, (error, data) => {
-    if (error) {
-      throw new Error(error)
-    }
-
-    data.map(record => {
-      record.file = JSON.parse(record.file)
-    })
-
-    res.send(data)
-  })
-})
-app.get("/api/media/:id", (req, res) => {
-  Media.findById(req.params.id, (error, data) => {
-    if (error) {
-      return res.send({ error: error.message })
-    }
-
-    if (!data) {
-      return res.status(404).send({ error: "Archivo no encontrado" })
-    }
-
-    res.send(data)
-  })
-})
-app.put("/api/media", (req, res) => {
+app.post("/admin/tourdates", protectRoute.ensureLoggedIn(), (req, res) => {
   var newData = req.body
-
-  newData.file = JSON.stringify(newData.file)
-
-  Media.findByIdAndUpdate(newData._id, newData, (error, data) => {
-    if (error) {
-      return res.send({ error: error.message })
-    }
-    res.send(data)
-  })
-})
-app.delete("/api/media/:id", (req, res) => {
-  Media.findByIdAndRemove(req.params.id, (error) => {
-    if (error) {
-      return res.send({ error: error.message })
-    }
-
-    res.send({ message: 'Eliminado exitosamente' })
-  })
-})
-app.post("/api/upload", (req, res) => {
+  var template = 'admin/main.html'
   var form = new multiparty.Form({
     uploadDir: '/tmp'
   })
@@ -294,12 +259,131 @@ app.post("/api/upload", (req, res) => {
     cloudinary.v2.uploader.upload(files.file[0].path, options, function (error, result) {
       fields.file = JSON.stringify(result)
       var media = new Media(fields)
+      var context = null
       media.save(function (error, data) {
         if (error) {
-          return res.send({ error: error.message })
+          context = { error: error.message }
+          return res.render(template, context)
         }
 
-        res.send(data)
+        var tourdate = TourDate(newData)
+        tourdate.save(function(error, data) {
+          if (error) {
+            context = { error: error.message }
+            return res.render(template, context)
+          }
+          
+          context = { message: 'Fecha creada correctamente!'}
+          return res.render(template, context)
+        })
+      })
+    })
+  })
+})
+app.get("/admin/blog", protectRoute.ensureLoggedIn(), (req, res) => {
+  var template = 'admin/blog/main.html'
+  Post.find({}).sort({created_at: -1}).lean().exec((error, data) => {
+    if (error) {
+      throw new Error(error)
+    }
+
+    var context = { dates: data }
+    res.render(template, context)
+  })
+})
+
+app.get("/admin/blog/new", (req, res) => {
+  var template = 'admin/blog/new.html'
+  var context = {}
+  res.render(template, context)
+})
+
+app.get("/admin/blog/:id", protectRoute.ensureLoggedIn(), (req, res) => {
+  TourDate.findById(req.params.id).populate('flyer').lean().exec((error, data) => {
+    if (error) {
+      return res.send({ error: error.message })
+    }
+
+    if (!data) {
+      return res.status(404).send({ error: "Archivo no encontrado" })
+    }
+
+    res.send(data)
+  })
+})
+
+app.put("/admin/blog", protectRoute.ensureLoggedIn(), (req, res) => {
+  var newData = req.body
+
+  newData.file = JSON.stringify(newData.file)
+
+  TourDate.findByIdAndUpdate(newData._id, newData, (error, data) => {
+    if (error) {
+      return res.send({ error: error.message })
+    }
+    res.send(data)
+  })
+})
+app.delete("/admin/blog/:id", protectRoute.ensureLoggedIn(), (req, res) => {
+  TourDate.findByIdAndRemove(req.params.id, (error) => {
+    if (error) {
+      return res.send({ error: error.message })
+    }
+
+    res.send({ message: 'Eliminado exitosamente' })
+  })
+})
+
+app.post("/admin/blog", protectRoute.ensureLoggedIn(), (req, res) => {
+  var newData = req.body
+  var template = 'admin/main.html'
+  var form = new multiparty.Form({
+    uploadDir: '/tmp'
+  })
+  form.parse(req, function (err, fields, files) {
+    if (err) {
+      return res.status(400)
+    }
+
+    Object.keys(fields).map(function (key) {
+      if (fields[key] == 'on') {
+        fields[key] = true
+        return
+      } 
+      if (fields[key] == 'off') {
+        fields[key] = false
+        return
+      }
+
+      fields[key] = fields[key]
+    })
+    
+    var options = {}
+    
+    if (fields.type == "video") {
+      options = { resource_type: "video" }
+    }
+
+    cloudinary.v2.uploader.upload(files.file[0].path, options, function (error, result) {
+      fields.file = JSON.stringify(result)
+      var media = new Media(fields)
+      var context = null
+      media.save(function (error, data) {
+        if (error) {
+          context = { error: error.message }
+          return res.render(template, context)
+        }
+
+        var tourdate = TourDate(newData)
+        tourdate.save(function(error, data) {
+          if (error) {
+            context = { error: error.message }
+            return res.render(template, context)
+          }
+          
+          context = { message: 'Fecha creada correctamente!'}
+          return res.render(template, context)
+        })
       })
     })
   })

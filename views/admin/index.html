@@ -1,35 +1,17 @@
 {% extends 'admin/layout.html' %}
 
 {% block content %}
-	<p style="display: inline-block" class="pull-right">Bienvenido {{ user.name }}</p>
-	<h1>Administrador para el sitio web: <a href="/">Felah Enkum</a></h1>
-	{% raw %}
-	<div id="admin-panel">
-		<div class="row">
-			<dir class="col-md-2">
-				<h2>Menu</h2>
-				<ul class="navbar">
-				    <li><router-link to="/media">Videos e Imagenes</router-link></li>
-				    <li><router-link to="/blog">Blog</router-link></li>
-				    <li><router-link to="/tour_dates">Fechas</router-link></li>
-				    <li><router-link to="/messages">Mensajes</router-link></li>
-				</ul>				
-			</dir>
-			<dir class="col-md-10">
-				<router-view>
-				</router-view>	
-			</dir>
-		</div>
-	</div>
-	{% endraw %}
+	<ul class="nav nav-tabs">
+		<li><a href="/admin/tourdates">Fechas <i class="glyphicon glyphicon-calendar"></i></a></li>
+
+		<li><a href="/admin/blog">Blog <i class="glyphicon glyphicon-book"></i></a></li>
+
+		<li><a href="/admin/messages">Mensajes <i class="glyphicon glyphicon-envelope"></i></a></li>			
+		<li><a href="/admin/subscriptions">Subscripciones <i class="glyphicon glyphicon-user"></i></a></li>
+	</ul>
 {% endblock %}
 
 {% block scripts %}
-	<script src="/vendor/vue.js"></script>
-	<script src="/vendor/vue-resource.min.js"></script>
-	<script src="/vendor/vue-router.js"></script>
 	<script src="/js/jquery.min.js"></script>
-	<script src="/vendor/tinymce/tinymce.min.js"></script>
-	<script src="/vendor/tinymce/jquery.tinymce.min.js"></script>
 	<script src="/js/admin.js"></script>
 {% endblock %}
